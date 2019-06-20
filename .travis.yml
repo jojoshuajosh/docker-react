@@ -1,0 +1,12 @@
+sudo: required 
+services:
+  - docker #make sure travis CI download docker in little container
+
+berofe_install:
+  - docker build -t jojoshuajosh/docker-react -f Dockerfile.dev 
+  #build specific dockerfile (Dockerfile.dev)
+  #tagged containers image id because we can't copy ID manually
+
+  #Tell Travis CI to run our test suite
+  script:
+    - docker run jojoshuajosh/docker-react npm run test -- --coverage
